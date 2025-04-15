@@ -1,0 +1,11 @@
+* About
+  Impurtiy calculation executor with necessary input files.
+
+* Necessary files
+  - input card
+  - potential
+  - back.coeff and tu.coeff
+  - shapefun
+  - green
+  - newbulk.fort.89.ijcheck
+  - fcc8-mad-7.40

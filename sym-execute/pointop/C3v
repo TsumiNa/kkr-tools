@@ -1,0 +1,20 @@
+ E         0.   1.
+ C3        2.   3.   1.        1.        1.
+ C3       -2.   3.   1.        1.        1.
+ C2 I      2.   2.  -1.        1.        0.
+ C2 I      2.   2.   0.       -1.        1.
+ C2 I      2.   2.  -1.        0.        1.
+    1
+     G1   REPRESENTATION C3V   ROW 1   COLUMN 1
+ 1.        1.        1.        1.        1.        1.
+REP
+    1
+     G2   REPRESENTATION C3V   ROW 1   COLUMN 1
+ 1.        1.        1.       -1.       -1.       -1.
+REP
+    2
+     G3   REPRESENTATION C3V   ROW 1   COLUMN 1
+ 1.0      -0.5      -0.5       1.0      -0.5      -0.5
+     G3   REPRESENTATION C3V   ROW 1   COLUMN 2
+ 0.         .8660254 -.8660254 0.        -.8660254  .8660254
+END

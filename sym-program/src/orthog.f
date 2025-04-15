@@ -1,0 +1,50 @@
+      SUBROUTINE ORTHOG(NBAS,COEF,MTAU,LP1)
+C-----------------------------------------------------------------------
+C THE SUBROUTINE ORTHONORMALIZES THE BASIS FUNCTIONS. FOR NBAS>1 THE
+C GRAM-SCHMIDT PROCEDURE IS USED.
+C-----------------------------------------------------------------------
+      IMPLICIT REAL*8 (A-H,O-Z)
+      PARAMETER (LMAX=48)
+      PARAMETER (N48=48)
+      PARAMETER (NBASMX=40)
+      PARAMETER (LMAXP1=LMAX+1)
+      DIMENSION COEF(N48,LMAXP1,2,NBASMX,3)
+      IF(NBAS.GT.NBASMX) STOP 77
+      IF(NBAS.EQ.1) GO TO 7
+C     ORTHOGONALIZATION
+      NN1=NBAS-1
+      DO 2 N=1,NN1
+      PROD=0.D0
+      IMAX=1
+      DO 3 M1=1,LP1
+      DO 4 I=1,IMAX
+      DO 4 MT=1,MTAU
+    4 PROD=PROD+COEF(MT,M1,I,NBAS,1)*COEF(MT,M1,I,N,1)
+    3 IMAX=2
+      IMAX=1
+      DO 22 M1=1,LP1
+      DO 21 I=1,IMAX
+      DO 21 MT=1,MTAU
+   21 COEF(MT,M1,I,NBAS,1)=COEF(MT,M1,I,NBAS,1)
+     1                   -PROD*COEF(MT,M1,I,N,1)
+   22 IMAX=2
+    2 CONTINUE
+C     NORMALIZATION
+    7 PROD=0.D0
+      IMAX=1
+      DO 5 M1=1,LP1
+      DO 51 I=1,IMAX
+      DO 51 MT=1,MTAU
+   51 PROD=PROD+COEF(MT,M1,I,NBAS,1)**2
+    5 IMAX=2
+      IF(PROD.LE.1.D-4) RETURN
+      PROD=DSQRT(PROD)
+      IMAX=1
+      DO 6 M1=1,LP1
+      DO 61 I=1,IMAX
+      DO 61 MT=1,MTAU
+   61 COEF(MT,M1,I,NBAS,1)=COEF(MT,M1,I,NBAS,1)/PROD
+    6 IMAX=2
+      NBAS=NBAS+1
+      RETURN
+      END

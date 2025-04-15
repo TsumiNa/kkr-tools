@@ -1,0 +1,45 @@
+      SUBROUTINE WRITGTR(E,EK,DF,GHOST,NDIMNP,IGHWRIT)
+      IMPLICIT NONE
+CO--->WRITE OUT TRANSFORMED GREENS-FUNCTION, AFTER
+CO--->TRANSFORMATION OR FIRST DYSON STEP IN CASE OF
+CO--->LATTICE RELAXATION
+
+C     .. Parameters ..
+      INTEGER NSEC
+      PARAMETER (nsec=689)
+C     ..
+c
+c---> read sym. host green's functions from disc
+c
+C     .. Scalar Arguments ..
+      COMPLEX*16 DF,E,EK
+      INTEGER NDIMNP,IGHWRIT,IHANDLE
+C     ..
+C     .. Array Arguments ..
+      COMPLEX*16 GHOST(NSEC,NSEC)
+      COMPLEX*16 GTEMP(NSEC,NSEC),GLIN(NSEC*NSEC)
+C     ..
+C     .. Local Scalars ..
+      INTEGER I1,I2,ILIN,NLIN
+C     ..
+      NLIN = NDIMNP*(NDIMNP+1)/2
+      DO 20 I1 = 1,NDIMNP
+        DO 10 I2 = 1,I1
+          GTEMP(I2,I1) = GHOST(I2,I1)
+          GTEMP(I1,I2) = GHOST(I2,I1)
+   10   CONTINUE
+   20 CONTINUE
+      WRITE (IGHWRIT) E,EK,DF, ((GTEMP(I2,I1),I2=1,I1),I1=1,NDIMNP)
+c      CALL FXDRDBL (IGHWRIT,E,2)
+c      CALL FXDRDBL (IGHWRIT,EK,2)
+c      CALL FXDRDBL (IGHWRIT,DF,2)
+c      ILIN = 1
+c      DO 20 I1 = 1,NDIMNP
+c        DO 10 I2 = 1,I1
+c          GLIN(ILIN) = GHOST(I2,I1)
+c          ILIN = ILIN +1
+c   10   CONTINUE
+c   20 CONTINUE
+c          IF ((ILIN-1).NE.NLIN) STOP 'READ FXDR'
+c      CALL FXDRRL  (IGHWRIT,GLIN,2*NLIN)
+      END

@@ -1,0 +1,27 @@
+c number of type of atoms 
+      integer natypd,NATOMD,NTREFD,NTPERD
+      parameter (NATYPD=38,NATOMD=102,NTREFD=1,NTPERD=NATYPD-NTREFD)
+c highest valence orbital quantum number     
+      integer lmaxd,lmx,lpotd
+      parameter (LMAXD=4,lmx=lmaxd+1,lpotd=2*lmaxd)
+c higheset number of seqular equation
+      integer nsec,NREPD
+      parameter (nsec=689,NREPD=4) !  ëŒèÃê´ÇÃï\åª
+C     MESH NUMBER OF ENERGY CONTOUR
+      INTEGER IEMXD
+      PARAMETER (iemxd=150)      
+c number of spin
+      integer nspind
+      parameter (NSPIND = 2)
+c     see output: newsym + GREEN-FUNCTION
+      integer NLSTD,ICGD,ICJD
+      parameter(NLSTD=15686,ICGD=6000,ICJD=93139)
+c     radial-mesh
+      integer irmd,IRNSD,irmind
+      parameter (irmd=1484,irnsd=508,irmind=irmd-irnsd)
+c     shape
+      integer nfund,irid,ngshd
+      parameter (NFUND=289,irid=435,ngshd=54287)
+c
+
+

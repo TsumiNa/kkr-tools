@@ -1,0 +1,31 @@
+ E         0.   1.                                                              
+ C2        2.   2.   0.        0.        1.                                     
+ C2'       2.   2.   0.        1.        0.                                     
+ C2'       2.   2.   1.        0.        0.                                     
+ C4 I      2.   4.   0.        0.        1.                                     
+ C4 I     -2.   4.   0.        0.        1.                                     
+ C2 I      2.   2.   1.        1.        0.                                     
+ C2 I      2.   2.   1.       -1.        0.                                     
+    1                                                                           
+     A1    REPRESENTATION D2D   ROW 1   COLUMN 1                                
+ 1.        1.        1.        1.        1.        1.        1.        1.       
+REP                                                                             
+    1                                                                           
+u8   A2    REPRESENTATION D2D   ROW 1   COLUMN 1
+ 1.        1.       -1.       -1.        1.        1.       -1.       -1.       
+REP                                                                             
+    1                                                                           
+     B1    REPRESENTATION D2D   ROW 1   COLUMN 1                                
+ 1.        1.        1.        1.       -1.       -1.       -1.       -1.       
+REP                                                                             
+    1                                                                           
+     B2    REPRESENTATION D2D   ROW 1   COLUMN 1                                
+ 1.        1.       -1.       -1.       -1.       -1.        1.        1.       
+REP                                                                             
+    2                                                                           
+     E     REPRESENTATION D2D   ROW 1   COLUMN 1                                
+ 1.0      -1.0      -1.0       1.0      0.0        0.0        0.0       0.0
+     E     REPRESENTATION D2D   ROW 1   COLUMN 2                                
+ 0.0       0.0       0.0       0.0      1.0       -1.0       +1.0      -1.0
+END                                                                             
+

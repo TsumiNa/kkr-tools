@@ -1,0 +1,113 @@
+c parameter for full / TB formalism for matrix inversion (1/0)
+      integer ifulld
+      parameter (IFULLD = 1 )
+c parameter ispard for SPARSE matrix inversion (1/0)
+      integer ispard
+      parameter (ISPARD = 0 )
+c parameter islabd for TB matrix inversion (1/0)
+      integer islabd
+      parameter (ISLABD = 1 - ISPARD - IFULLD )
+c number of different atoms in unitcell
+      integer natypd
+      parameter (NATYPD = 1)
+c number of atoms in unitcell
+      integer naezd
+      parameter (NAEZD = 1)
+c number of atoms at cent r of inversion
+      integer nzd
+      parameter (NZD = 0 )
+c highest valence orbital quantum number
+      integer lmaxd
+      parameter (LMAXD = 4)
+c maximum number of occupied bands
+      integer m2d
+      parameter (M2D =  9)
+c maximum number of reference potentials
+      integer nrefd
+      parameter (NREFD = 1)
+c number of spin directions (nspind= 1 non-spin-polarized
+c                                    2  spin-polarized    )
+      integer nspind
+      parameter (NSPIND = 2)
+c number of layers in one principal layer
+      integer nprincd
+      parameter (NPRINCD = 1)
+c parameter for non-/spherical potentials (0/1)
+      integer insd
+      parameter (INSD = 1)
+c number of inequivalent positions
+      integer nineqd
+      parameter (NINEQD = (NAEZD+NZD)/2 )
+c dimension of KKR-matrix for full matrix inversion
+      integer ndimgk
+      parameter (NDIMGK = NAEZD)
+c number of principal layers
+      integer nlayerd
+      parameter (NLAYERD = (NAEZD/NPRINCD))
+c modified number of atoms for storing non-sph. radial functions
+      integer nsatypd
+      parameter (NSATYPD = (NATYPD-1)*INSD+1)
+c modified number of potentials for storing non-sph. potentials
+      integer nspotd
+      parameter (NSPOTD = NSPIND*NSATYPD)
+c number of shells (for storing GF in GS (*,*,*,nsheld))
+      integer nsheld
+c      parameter (NSHELD = NATYPD)
+       parameter (NSHELD =2702)
+c highest potential orbital quantum number
+      integer lpotd
+      parameter (LPOTD = 2*LMAXD)
+c number of clebsch gordon coeffizients
+      integer ncleb
+      parameter (NCLEB = ((lmaxd*2+1)**2)*((lmaxd+1)**2) )
+c number of points in complex energy plane for integration
+      integer iemxd
+      parameter (IEMXD =200)
+c number of points at real energy axis for eigenvalue determination
+      integer npntd
+      parameter (NPNTD = 10000 )
+c number of r points in (0  , rmt (? rws))
+      integer irmd
+      parameter (IRMD = 1484)
+c number of r points in ( rmt,rws)
+      integer irnsd
+c     parameter (IRNSD = 308)   ! 308
+      parameter (IRNSD = 508)   ! 208
+c     ..
+      integer ijd
+      parameter(ijd=434)
+c     ..
+      integer nfund,irid,ngshd,ngfd
+c      parameter (NFUND = 131,IRID = 635,NGSHD = 3079,NGFD=2564)
+       parameter (NFUND = 231,IRID = 435,NGSHD =43079,NGFD=2564)
+c ..  number of cells (shapes), panels in non-spherical part
+      integer ncelld,ipand
+      parameter (NCELLD = 5,IPAND = 15)
+c constants for ordering the symmetry operations
+      integer iumaxd,ivmaxd
+      parameter (IUMAXD = 6,IVMAXD = 4)
+c number of real space and reciprocal space vectors
+      integer nrd,kpoibz
+      parameter (NRD = 20000,KPOIBZ =12000)
+c parameter in potential subroutines
+      integer ntrefd
+      parameter (NTREFD = 0)
+c number of madelung shells (AVMAD(nvmadd,*,*),BVMAD(nvmadd,*))
+      integer nvmadd
+      parameter (NVMADD = NAEZD)
+c number of principal layers for SPARSE matrix inversion
+      integer nlspd
+      parameter (NLSPD = (NAEZD/NPRINCD-1)*ISPARD+1)
+c number of nonzero blocks in G(L,L',k,E) for SPARSE matrix inversion
+      integer nauxspd
+      parameter (NAUXSPD = NLSPD*NLSPD/2+1)
+c parameter nembd for embeding positions around the real atomic pos.
+      integer nembd
+      parameter (NEMBD = 0 )
+c paremeters for the ewald calculation
+      integer nmaxd,ishld
+c     PARAMETER (NMAXD=5000,ISHLD=500)
+      PARAMETER (NMAXD=9700,ISHLD=800)
+c Parameter for Impurity Calculations, causion!!! change always, depending the impurity cluster
+      integer natomimpd
+      PARAMETER (NATOMIMPD=501)

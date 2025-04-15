@@ -1,0 +1,85 @@
+***** Input file for TB-KKR code *****
+      ***Running options*** 
+RUNOPT 
+full inv                           ....    .... 
++-------+-------+-------+-------+-------+
+      ***test options*** (2 lines) 
+TESTOPT
+ie      
+....    .....   
++-------+-------+-------+-------+-------+ 
+  LMAX=4    NSPIN=1   NATYP=1  KMT=3          Change naez also ! 
+--------------------------------------------
+ ** Description of lattice**
+ALATBASIS= 7.40      1.0      1.0        lattice constants
+BASISCALE= 1.0       1.0      1.0          scaling factor
+LATTICE=1
+BRAVAIS 
+       0.50000000   0.50000000   0.00000000
+       0.00000000   0.50000000   0.50000000
+       0.50000000   0.00000000   0.50000000
+----------------------------------------------------------------------
+NAEZ= 1  NEMB=0   NEMBZ=0  KAOEZ=0  
+CARTESIAN= f
+RBASIS                             
+         0.0000000000   0.00000000000  0.00000000      1
+SCALING=  1.0         1.0         1.0
+----------------------------------------------------------------------
+Parameters for the clusters    (if same spherical cluster else cylindrical)
+RCLUSTZ=1.510d0       RCLUSTXY=1.510d0
+----------------------------------------------------------------------
+ATOMINFO
+Z     LMXC     KFG        CLS  REFPOT  NTC  FAC   IRNS  RMT   WATOM
+46.0   2       4 3 3 0     1    1       1    1.00  508  2.4   1.0
+----------------------------------------------------------------------
+EMIN      EMAX       TEMPR      NPOL      NPT1    NPT2     NPT3  
+-4.0     .9000000    1400.d0     5         32      94       4
+----------------------------------------------------------------------
+  IRNUMX= 10    ITCCOR= 40    IPRCOR= 0    IFILE= 13      IPE= 0
+     KWS= 2     KSHAPE= 2        IRM= 1484    INS= 1      ICST= 2  
+  INSREF= 0       KCOR= 3      KVREL= 1     KEXCOR= 0       
+ KHYPERF= 0    KHFIELD= 0       KEFG= 0     KFORCE= 0
+     KTE= 1       KPRE= 0      KVMAD= 0   KSCOEF= 0      
+ IPOTOUT= 1  IGREENFUN= 0        ICC= 1   ISHIFT= 0
+  HFIELD= 0.0   VCONST= 0.0d0 
+            
+BZDIVIDE= 30     30     30
+----------------------------------------------------------------------
+NSTEPS     IMIX    STRMIX       FCM       QBOUND    BRYMIX      ITDBRY
+ 001         4       0.01       20.0       1.D-8    0.0500      15
+----------------------------------------------------------------------
+LINIPOL= f      LRHOSYM=f    LCOMPLEX= f
+Center of inversion :      NZ=4     LCENTER= t
+ LOGINV= f       INIPOL= 0     IXIPOL=  0
+CENTROFIN=   0.0      0.0      0.0
+----------------------------------------------------------------------
+MMIN= 1   MMAX=6                      mmin mmax (bands)
+SRINOUT=   0   0   0  00              sinn(0/1)sout(0/23)rin(0/1)rout(0/17)
+----------------------------------------------------------------------
+FILES
+4Ry-7.4-1484-fcc                               I12
+potin.740                                         I13
+madelung                                          I40
+shape-7.40-MT2.4-1484                             I19
+scoef102                                             I25
+----------------------------------------|40---------------------------
+**********************************************************************
+This is used for decimation , put   vacuum  in the file to have vacuum
+DECIFILES 
+fedeci.fp1                                  left (up) host
+fedeci.fp2                                  right (down) host
+----------------------------------------|40---------------------------
+Parameters for ewald sums
+RMAX=7.0d0     GMAX=75.0d0     (fcc 7  65)
+----------------------------------------------------------------------
+INTERFACE= F
+NRIGHTHO=  10    NLBASIS=  1
+NLEFTHOS=  10    NRBASIS=  1
+LEFTBASIS    X         Y         Z     REFPOT
+          0.50000000   0.50000000  -0.50000     1
+RIGHBASIS
+          0.00000000   0.00000000   3.00000     1
+---------------------------------------
+ZPERIODL= 0.50000000  0.50000000  -0.50000000
+ZPERIODR= 0.50000000  0.50000000   0.50000000
+----------------------------------------------------------------------

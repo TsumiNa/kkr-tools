@@ -1,0 +1,153 @@
+      SUBROUTINE SETUP(CN,MI,IMIN,IMAX,N0ATOM,NBASIS,NSEC,NUMCOL,NAT,
+     +                 LMAX,NMS,LN,NLEQ,N0,NTERMS,NP,NATMX,NDIM,NDG)
+      IMPLICIT NONE
+C-----------------------------------------------------------------------
+C     .. Scalar Arguments ..
+      INTEGER LMAX,NAT,NATMX,NBASIS,NP,NSEC,NUMCOL
+C     ..
+C     .. Array Arguments ..
+      REAL*8 CN(NBASIS,NSEC,*)
+      INTEGER IMAX(NSEC,NATMX,NUMCOL),IMIN(NSEC,NATMX,NUMCOL),LN(*),
+     +        MI(NBASIS,NSEC,1),N0(*),N0ATOM(NBASIS,NSEC,1),NDG(*),
+     +        NDIM(*),NLEQ(*),NMS(NSEC,*),NTERMS(*)
+C     ..
+C     .. Local Scalars ..
+      REAL*8 CNSUM
+      INTEGER I,I0,IHELP1,IN,J,MNI,N,NA,NCOL,NDIMNP,NK,NKOL,NMMAX,NMN,
+     +        NN,NUATOM
+C     ..
+C     .. Intrinsic Functions ..
+      INTRINSIC DSQRT,IABS,MAX0
+C     ..
+      READ (19,FMT=9000) NDIM(NP),NDG(NP)
+      IF (NDIM(NP).LE.NSEC) GO TO 10
+      WRITE (6,FMT=9010) NDIM(NP),NSEC
+      STOP
+   10 WRITE (6,FMT=9020) NDIM(NP),NDG(NP)
+      NCOL = NDG(NP)/2
+      IF (NCOL.LE.NUMCOL) GO TO 20
+      WRITE (6,FMT=9030) NCOL,NUMCOL
+      STOP
+C########################
+   20 NDIMNP = NDIM(NP)
+      DO 100 N = 1,NDIMNP
+        DO 90 NK = 1,NCOL
+C-ALL BASISFUNCTION BELONGING TO DIFFERENT COLUMMS ARE READ IN,
+C-    BUT NOT ALL THESE ARE USED(SEE SYMINV). WHEN TWO- SIDED-
+C-SYMMETRIZING ONLY THOSE BELONGING TO THE FIRST COLUMM ARE USED
+C                                                        READ
+          READ (19,FMT=9000) LN(N),NMS(N,NK),NKOL
+          IF (NKOL.EQ.0) NKOL = 1
+          IF (NKOL.EQ.NK) GO TO 30
+          WRITE (6,FMT=9040) N,NK
+          STOP
+   30     IF (NK.EQ.1) GO TO 40
+          IF (LN(N).EQ.IHELP1) GO TO 40
+          WRITE (6,FMT=9040) N,NK
+          STOP
+   40     IHELP1 = LN(N)
+          IF (NMS(N,NK).LE.NBASIS) GO TO 50
+          WRITE (6,FMT=9050) NMS(N,NK),NBASIS
+          STOP
+   50     IF (LN(N).LE.LMAX) GO TO 60
+          WRITE (6,FMT=9060) LN(N),LMAX
+          STOP
+   60     NMN = NMS(N,NK)
+          CNSUM = 0.D0
+          DO 70 I = 1,NMN
+            READ (19,FMT=9070) MNI,IN,N0ATOM(I,N,NK),CN(I,N,NK)
+            IF (IABS(IN).NE.1 .OR. MNI.LT.0) WRITE (6,FMT=9080)
+            IF (MNI.EQ.0 .AND. IN.EQ.-1) WRITE (6,FMT=9080)
+            MI(I,N,NK) = IN*MNI
+C- RE-SIGNED BECAUSE OF DIFFERENT DEF. OF Y(L,M) IN THIS PROGRAM
+C-                  E.G. M=-1,0,1(Y,Z,X) INSTEAD OF M=-1,0,1(-Y,Z,-X)
+C-                  CORRESPONDING TO COEFFICIENTS OF SYMMETRY-INPUT
+            CN(I,N,NK) = CN(I,N,NK)* (-1)**MNI
+            CNSUM = CNSUM + CN(I,N,NK)**2
+   70     CONTINUE
+          CNSUM = DSQRT(CNSUM)
+          DO 80 I = 1,NMN
+            CN(I,N,NK) = CN(I,N,NK)/CNSUM
+   80     CONTINUE
+   90   CONTINUE
+  100 CONTINUE
+      NMMAX = 0
+      DO 120 I = 1,NCOL
+        DO 110 J = 1,NDIMNP
+          NMMAX = MAX0(NMMAX,NMS(J,I))
+  110   CONTINUE
+  120 CONTINUE
+      WRITE (6,FMT=9090) NMMAX
+C#############
+      DO 230 NK = 1,NCOL
+        DO 140 N = 1,NAT
+          NLEQ(N) = 0
+          NTERMS(N) = 0
+          DO 130 NN = 1,NDIMNP
+            IMIN(NN,N,NK) = 0
+            IMAX(NN,N,NK) = 0
+  130     CONTINUE
+  140   CONTINUE
+        NUATOM = 0
+        DO 210 N = 1,NDIMNP
+          NMN = NMS(N,NK)
+          DO 180 I = 1,NMN
+            NA = N0ATOM(I,N,NK)
+            IF (NLEQ(NA).EQ.0) NLEQ(NA) = N0ATOM(1,N,NK)
+            IF (NLEQ(NA).NE.N0ATOM(1,N,NK)) WRITE (6,FMT=9100)
+            IF (I.EQ.1) GO TO 150
+            IF (NA.EQ.N0ATOM(I-1,N,NK)) GO TO 160
+            IF (NA.GT.N0ATOM(I-1,N,NK)) GO TO 150
+            WRITE (6,FMT=9110)
+            STOP
+  150       IMIN(N,NA,NK) = I
+            I0 = I
+  160       IMAX(N,NA,NK) = I
+            IF (I0.EQ.I) GO TO 180
+            DO 170 J = I0,I - 1
+              IF (MI(I,N,NK).EQ.MI(J,N,NK)) WRITE (6,FMT=9120)
+  170       CONTINUE
+  180     CONTINUE
+          NUATOM = MAX0(NUATOM,NLEQ(NA))
+C------                   NUATOM
+          NA = N0ATOM(1,N,NK)
+          NTERMS(NA) = NTERMS(NA) + 1
+          IF (N.EQ.1) GO TO 190
+          IF (NA.NE.N0ATOM(1,N-1,NK)) GO TO 190
+          IF (LN(N).EQ.LN(N-1)) GO TO 200
+          IF (LN(N).LT.LN(N-1)) WRITE (6,FMT=9110)
+  190     CONTINUE
+  200     CONTINUE
+  210   CONTINUE
+        IF (NK.EQ.1 .OR. NUATOM.EQ.IHELP1) GO TO 220
+        WRITE (6,FMT=9130)
+        STOP 23
+  220   IHELP1 = NUATOM
+  230 CONTINUE
+      N0(1) = 1
+      IF (NUATOM.EQ.1) GO TO 250
+      DO 240 NA = 2,NUATOM
+        N0(NA) = N0(NA-1) + NTERMS(NA-1)
+  240 CONTINUE
+  250 CONTINUE
+      RETURN
+ 9000 FORMAT (3I5)
+ 9010 FORMAT (' ERROR IN SYMM, NDIM=',I5,
+     +       ' IS GREATER THAN SPACE ALLOCAT D=',I5)
+ 9020 FORMAT (23X,'DIMENSION OF SECULAR MATRIX=',I4,' DEGENERACY=',I3)
+ 9030 FORMAT (' ERROR IN SYMM, NUMBER OF COLUMNS=',I5,
+     +       ' IS GREATER THAN  PACE ALLOCATED=',I5)
+ 9040 FORMAT (' SYMMETRICAL COMBINATION OUT OF SEQUENCE, N=',I3,' NK=',
+     +       I3)
+ 9050 FORMAT (' ERROR IN SYMM,  BASIS SIZE=',I5,
+     +       ' IS GREATER THAN SPACE  LLOCATED=',I5)
+ 9060 FORMAT (' ERROR IN SYMM, NO. OF L-VALUES=',I5,
+     +       ' IS GREATER THAN SP CE ALLOCATED=',I5)
+ 9070 FORMAT (3I5,F17.10)
+ 9080 FORMAT ('     WRONG VALUES FOR M AND I')
+ 9090 FORMAT (' NECESSARY MAXIMUM VALUE OF NBASIS:',I5)
+ 9100 FORMAT ('    INCONSISTENT NUMBERING OF ATOMS')
+ 9110 FORMAT ('     SYMMETRY CARD OUT OF SEQUENCE')
+ 9120 FORMAT ('    DUPLICATE TERMS IN BASIS FUNCTION   ')
+ 9130 FORMAT (' INCONSISTENCY IN SYMMETRICAL COMBINATION')
+      END

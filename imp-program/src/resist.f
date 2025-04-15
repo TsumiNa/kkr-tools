@@ -1,0 +1,66 @@
+      SUBROUTINE RESIST(ALAT,ISPIN,LMAX,LMAXSQ,N,NATOM,NATYP,NREP,NSPIN,
+     +                  GMAT,TMATLL,RM,ITITLE,NDIM,NDIMNP,NSHELL)
+      IMPLICIT NONE
+c
+c---> generate output for resistivity calculation - only for natref = 1
+c
+C     .. Parameters ..
+      INTEGER NATYPD,NTREFD,NATOMD,NTPERD,NSPIND
+      PARAMETER (NATYPD=38,NTREFD=1,NATOMD=102,NTPERD=NATYPD-NTREFD,
+     +          NSPIND=2)
+      INTEGER NSEC,NREPD
+      PARAMETER (nsec=689,NREPD=4)
+      INTEGER LMAXD,LMX
+      PARAMETER (lmaxd=4,LMX=LMAXD+1)
+      INTEGER LMMAXD
+      PARAMETER (LMMAXD=LMX**2)
+      INTEGER NPOTD
+      PARAMETER (NPOTD=NSPIND*NATYPD)
+C     ..
+C     .. Local Scalars ..
+      INTEGER I1,I2,IA,IATOM,LM1,LM2,NP
+C     ..
+C     .. Save statement ..
+      SAVE
+C     ..
+
+C     .. Scalar Arguments ..
+      REAL*8 ALAT
+      INTEGER ISPIN,LMAX,LMAXSQ,N,NATOM,NATYP,NDIMNP,NREP,NSPIN
+C     ..
+C     .. Array Arguments ..
+      COMPLEX*16 GMAT(NSEC,NSEC),TMATLL(LMMAXD,LMMAXD,NATYPD)
+      REAL*8 RM(3,NATOMD)
+      INTEGER ITITLE(20,NPOTD),NDIM(NREPD),NSHELL(NTPERD)
+C     ..
+      IF (NP.EQ.1) THEN
+        WRITE (67) (ITITLE(IA,1),IA=1,20)
+        WRITE (67) (ITITLE(IA,NSPIN+1),IA=1,20)
+        WRITE (67) NATOM,LMAX
+        WRITE (67) NREP,NREPD
+        WRITE (67) (NDIM(NP),NP=1,NREP),NSEC
+      END IF
+      WRITE (67) ((GMAT(I1,I2),I1=1,NDIMNP),I2=I1,NDIMNP)
+      IF (NP.EQ.1) THEN
+        WRITE (55,FMT='(1X,20A4)') (ITITLE(IA,1),IA=1,20)
+        WRITE (55,FMT='(1X,20A4)') (ITITLE(IA,NSPIN+ISPIN),IA=1,20)
+        WRITE (55,FMT='(F10.5)') ALAT
+        WRITE (55,FMT='(4I5)') NATOM,LMAXSQ,ISPIN,NSPIN
+
+        DO 10 IATOM = 1,NATOM
+          WRITE (55,FMT='(3F10.5)') (RM(N,IATOM),N=1,3)
+   10   CONTINUE
+
+
+        WRITE (55,FMT='(4E20.12)') ((TMATLL(LM1,LM2,1),LM1=1,LMAXSQ),
+     +    LM2=1,LMAXSQ)
+
+        WRITE (55,FMT='(I5)') NATYP
+        DO 20 I1 = 2,NATYP
+          WRITE (55,FMT='(I5)') NSHELL(I1-1)
+          WRITE (55,FMT='(4E20.12)') ((TMATLL(LM1,LM2,I1)-TMATLL(LM1,
+     +      LM2,1),LM1=1,LMAXSQ),LM2=1,LMAXSQ)
+   20   CONTINUE
+      END IF
+
+      END

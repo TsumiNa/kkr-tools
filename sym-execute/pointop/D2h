@@ -1,0 +1,40 @@
+ E         0.   1.                                  
+ C2z       2.   2.   1.        1.        0.                 
+ C2y       2.   2.   1.       -1.        0.               
+ C2x       2.   2.   0.        0.        1.              
+ I         0.   1.                                     
+ C2zI      2.   2.   1.        1.        0.                            
+ C2yI      2.   2.   1.       -1.        0.                             
+ C2xI      2.   2.   0.        0.        1.                            
+    1                                                                   
+     G1    REPRESENTATION D2    ROW 1   COLUMN 1                       
+ 1.        1.        1.        1.        1.        1.        1.        1.
+REP                                                                     
+    1                                                                   
+     G2    REPRESENTATION D2    ROW 1   COLUMN 1                       
+ 1.       -1.        1.       -1.        1.       -1.        1.       -1. 
+REP                                                                  
+    1                                                                   
+     G3    REPRESENTATION D2    ROW 1   COLUMN 1                       
+ 1.        1.       -1.       -1.        1.        1.       -1.       -1.         
+REP                                                                   
+    1                                                                  
+     G4    REPRESENTATION D2    ROW 1   COLUMN 1                        
+ 1.       -1.       -1.        1.        1.       -1.       -1.        1.         
+REP 
+    1                                                                   
+     G1U    REPRESENTATION D2    ROW 1   COLUMN 1                        
+ 1.        1.        1.        1.       -1.       -1.       -1.       -1.
+REP                                                                     
+    1                                                                   
+     G2U    REPRESENTATION D2    ROW 1   COLUMN 1                       
+ 1.       -1.        1.       -1.       -1.        1.       -1.        1.       
+REP                                                                  
+    1                                                                   
+     G3U    REPRESENTATION D2    ROW 1   COLUMN 1                       
+ 1.        1.       -1.       -1.       -1.       -1.        1.        1.         
+REP                                                                   
+	    1                                                                  
+     G4U    REPRESENTATION D2    ROW 1   COLUMN 1                        
+ 1.       -1.       -1.        1.       -1.        1.        1.       -1.         
+END                                                                     

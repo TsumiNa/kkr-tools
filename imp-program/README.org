@@ -1,0 +1,8 @@
+* About this program
+  for impurity calculation
+
+* Parameter be used
+  - atoms: 102
+  - sym: c2v
+  - mesh: 1484
+  - lmax: l

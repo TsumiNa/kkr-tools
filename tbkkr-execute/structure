@@ -1,0 +1,14 @@
+lmax= 4 LHARMY=T LGSYMM=T LBTSYM=T
+gf_outdata
+1. lattice: 
+Oh                                          point group symmetry
+   7.400    BOHR                           lattice constant (ANGSTROM or BOHR)
+  0.500000  0.500000  -0.000000            primitive lattice vector
+  0.000000  0.500000   0.500000            primitive lattice vector
+  0.500000 -0.000000   0.500000            primitive lattice vector
+  1                                         number of basis atoms
+  -.250000   -.250000    .000000            basis vectors
+2. impurity cluster: with impurity numbers and impurity and host types
+C2v
+ 41                                        number of shells
+  1                                  number of center (should be basis vector)
